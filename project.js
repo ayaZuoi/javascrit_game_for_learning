@@ -70,7 +70,7 @@ const getBet =(balance,lines )=>{
         }
 
 
-}
+};
 
 
 const spin=()=>{
@@ -133,7 +133,7 @@ const getWinnings =(rows,bet,lines)=>{
             }
         }
         if (allsame){
-            winnings += bet*SYMPOL_VALUES[symbols[0]]
+            winnings += bet*SYMPOL_VALUES[symbols[0]];
 
         }
 
@@ -141,12 +141,32 @@ const getWinnings =(rows,bet,lines)=>{
     }
     return winnings;
 };
+const game =()=>{
+    let balance = deposit();
+    while(true){
+        console.log("You have a balance of $" + balance);
 
-let balance = deposit();
 const numberoflines= getNumberofLines();
 const bet =getBet(balance ,numberoflines);
+balance -= bet* numberoflines;
 const reels =spin();
 const rows = transpose(reels);
 printROWS(rows);
-const winnings =getWinnings(rows ,bet,numberoflines)
-console.log("you won ,$"+winnings.toString());
+const winnings =getWinnings(rows ,bet,numberoflines);
+balance += winnings;
+console.log("you won ,$" + winnings.toString());
+if (balance <=0 ){
+    console.log("you ran out of monay !:(")
+    break;
+}
+
+const palAgain = prompt("Do You want to play agian ? (y/n)" );
+if (palAgain != "y") break;
+
+    
+    
+
+}
+}
+game();
+
